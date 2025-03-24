@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home - Service Request Portal</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <style>
+        :root {
+            --primary-gradient: linear-gradient(135deg, #0ea5e9 0%, #38bdf8 100%);
+            --danger-gradient: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+        }
+
+        body {
+            background-color: #f8fafc;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+
+        .navbar {
+            background: var(--primary-gradient) !important;
+            padding: 1rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        .navbar-brand {
+            font-weight: 700;
+            font-size: 1.5rem;
+        }
+
+        .service-card {
+            border: none;
+            border-radius: 16px;
+            background: white;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            overflow: hidden;
+        }
+
+        .service-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+        }
+
+        .service-card .card-body {
+            padding: 2rem 1.5rem;
+        }
+
+        .service-icon {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, #0ea5e9 0%, #38bdf8 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            transition: transform 0.3s ease;
+        }
+
+        .emergency-icon {
+            background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .service-card:hover .service-icon {
+            transform: scale(1.1);
+        }
+
+        .card-title {
+            font-weight: 700;
+            font-size: 1.25rem;
+            margin-bottom: 1rem;
+            color: #1e293b;
+        }
+
+        .card-text {
+            color: #64748b;
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+
+        .btn {
+            border-radius: 12px;
+            padding: 0.75rem 1.5rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: none;
+        }
+
+        .btn-primary {
+            background: var(--primary-gradient);
+        }
+
+        .btn-danger {
+            background: var(--danger-gradient);
+            animation: gentlePulse 2s infinite;
+        }
+
+        @keyframes gentlePulse {
+            0% {
+                transform: scale(1);
+                box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.4);
+            }
+            70% {
+                transform: scale(1.03);
+                box-shadow: 0 0 0 15px rgba(239, 68, 68, 0);
+            }
+            100% {
+                transform: scale(1);
+                box-shadow: 0 0 0 0 rgba(239, 68, 68, 0);
+            }
+        }
+
+        .welcome-card {
+            border: none;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+
+        .welcome-card .card-header {
+            background: var(--primary-gradient);
+            padding: 2rem;
+            border-bottom: none;
+        }
+
+        .welcome-card .card-header h2 {
+            font-weight: 700;
+            font-size: 2rem;
+            margin: 0;
+        }
+
+        .welcome-card .card-body {
+            padding: 2rem;
+        }
+
+        .lead {
+            color: #64748b;
+            font-size: 1.1rem;
+            font-weight: 500;
+        }
+
+        footer {
+            background: #1e293b !important;
+            color: white;
+            margin-top: 6rem !important;
+        }
+
+        footer h5 {
+            color: #f8fafc;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+        }
+
+        footer p {
+            color: #cbd5e1;
+        }
+
+        footer .text-center {
+            background: rgba(0, 0, 0, 0.2) !important;
+            color: #cbd5e1;
+        }
+
+        .contact-info i {
+            color: #0ea5e9;
+            margin-right: 0.5rem;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container">
+            <a class="navbar-brand" href="{{ url_for('index') }}">
+                <i class="bi bi-grid-3x3-gap-fill me-2"></i>Service Portal
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="{{ url_for('index') }}">
+                            <i class="bi bi-house-door me-1"></i>Home
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-11">
+                <div class="welcome-card">
+                    <div class="card-header">
+                        <h2 class="text-white mb-0">Welcome to Service Portal</h2>
+                    </div>
+                    <div class="card-body">
+                        <p class="lead mb-4">Choose from our curated selection of services below:</p>
+                        
+                        <div class="row row-cols-1 row-cols-md-3 g-4">
+                            {% for service in services %}
+                            <div class="col">
+                                <div class="card h-100 service-card">
+                                    <div class="card-body text-center">
+                                        {% if service.name == 'Plumbing' %}
+                                            <i class="bi bi-droplet-fill service-icon"></i>
+                                        {% elif service.name == 'Electrical' %}
+                                            <i class="bi bi-lightning-fill service-icon"></i>
+                                        {% elif service.name == 'Carpentry' %}
+                                            <i class="bi bi-hammer service-icon"></i>
+                                        {% elif service.name == 'Cleaning' %}
+                                            <i class="bi bi-brush service-icon"></i>
+                                        {% elif service.name == 'Gardening' %}
+                                            <i class="bi bi-flower1 service-icon"></i>
+                                        {% elif service.name == 'Automotive' %}
+                                            <i class="bi bi-car-front-fill service-icon"></i>
+                                        {% elif service.name == 'Ambulance' %}
+                                            <i class="bi bi-hospital-fill service-icon emergency-icon"></i>
+                                        {% elif service.name == 'Police' %}
+                                            <i class="bi bi-shield-fill-check service-icon emergency-icon"></i>
+                                        {% elif service.name == 'Fire Fighter' %}
+                                            <i class="bi bi-fire service-icon emergency-icon"></i>
+                                        {% endif %}
+                                        <h5 class="card-title">{{ service.name }}</h5>
+                                        <p class="card-text">{{ service.description }}</p>
+                                        {% if service.name in ['Ambulance', 'Police', 'Fire Fighter'] %}
+                                        <a href="{{ url_for('service_form', service_id=service.id) }}" class="btn btn-danger w-100">
+                                            <i class="bi bi-telephone-fill me-2"></i>Request Emergency
+                                        </a>
+                                        {% else %}
+                                        <a href="{{ url_for('service_form', service_id=service.id) }}" class="btn btn-primary w-100">
+                                            <i class="bi bi-calendar-check me-2"></i>Book Service
+                                        </a>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="text-center text-lg-start mt-5">
+        <div class="container p-5">
+            <div class="row">
+                <div class="col-lg-6 col-md-12 mb-4 mb-md-0">
+                    <h5 class="text-uppercase">
+                        <i class="bi bi-grid-3x3-gap-fill me-2"></i>Service Portal
+                    </h5>
+                    <p>
+                        Your one-stop platform for all services. Quick, reliable, and always there when you need us.
+                    </p>
+                </div>
+                <div class="col-lg-6 col-md-12 mb-4 mb-md-0">
+                    <h5 class="text-uppercase">Contact Us</h5>
+                    <p class="contact-info">
+                        <i class="bi bi-envelope-fill"></i>help@serviceportal.com<br>
+                        <i class="bi bi-telephone-fill"></i>+91 98765 43210<br>
+                        <i class="bi bi-geo-alt-fill"></i>123 Service Street, Anytown, ST 12345
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="text-center p-3">
+            © 2025 Service Portal | Made with <i class="bi bi-heart-fill text-danger"></i> for our community
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html> 
